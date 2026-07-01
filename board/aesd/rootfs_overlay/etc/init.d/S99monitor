@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+        echo "Starting system health monitor"
+        /usr/bin/monitor.sh &
+        ;;
+    stop)
+        echo "Stopping system health monitor"
+        killall monitor.sh
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+        ;;
+esac
+
+exit 0
