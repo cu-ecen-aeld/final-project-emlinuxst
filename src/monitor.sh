@@ -3,6 +3,7 @@
 LOGFILE="/tmp/system_health.log"
 
 echo "Starting Embedded Linux System Health Monitor..."
+echo "Monitor started at $(date)" >> "$LOGFILE"
 
 while true
 do
