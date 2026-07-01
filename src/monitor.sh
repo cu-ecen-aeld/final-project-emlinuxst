@@ -1,28 +1,39 @@
 #!/bin/sh
 
-echo "======================================"
-echo " Embedded Linux System Health Monitor "
-echo "======================================"
+LOGFILE="/tmp/system_health.log"
 
-echo
-echo "System Time:"
-date
+echo "Starting Embedded Linux System Health Monitor..."
 
-echo
-echo "System Uptime:"
-uptime
+while true
+do
+    echo "========================="
+    date
 
-echo
-echo "CPU Information:"
-cat /proc/cpuinfo | grep "model name" | head -1
+    echo "CPU Load:"
+    cat /proc/loadavg
 
-echo
-echo "Memory Information:"
-cat /proc/meminfo | head -5
+    echo ""
 
-echo
-echo "Disk Usage:"
-df -h
+    echo "Memory:"
+    free -h
 
-echo
-echo "Health monitor completed successfully."
+    echo ""
+
+    echo "Disk:"
+    df -h /
+
+    echo ""
+
+    {
+        echo "========================="
+        date
+        echo "CPU Load:"
+        cat /proc/loadavg
+        echo "Memory:"
+        free -h
+        echo "Disk:"
+        df -h /
+    } >> "$LOGFILE"
+
+    sleep 10
+done
